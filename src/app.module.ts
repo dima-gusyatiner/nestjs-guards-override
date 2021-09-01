@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 
-import { AuthGuardService, AuthOverrideGuardService } from './guards';
+import { AuthGuard, AuthOverrideGuard } from './guards';
 import { AppService } from './services';
 import { AppController } from './app.controller';
 
@@ -9,14 +9,10 @@ import { AppController } from './app.controller';
   controllers: [AppController],
   providers: [
     AppService,
-    AuthOverrideGuardService,
     {
-      provide: AuthGuardService,
-      useClass: AuthOverrideGuardService,
+      provide: AuthGuard,
+      useClass: AuthOverrideGuard,
     }
-  ],
-  exports: [
-    AuthOverrideGuardService,
   ],
 })
 export class AppModule {}
